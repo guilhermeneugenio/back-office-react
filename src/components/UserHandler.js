@@ -1,19 +1,32 @@
-var UserProfile = (function () {
-    var full_name = "";
+import axios from "axios";
+const UserProfile = (function () {
 
-    var getName = function () {
+    const baseURL = "https://reqres.in/api/users";
+
+    let full_name = "";
+
+    let getName = function () {
         full_name = localStorage.getItem("active_session")
         return full_name;
     };
 
-    var setName = function (name) {
+    let setName = function (name) {
         full_name = name;
         localStorage.setItem("active_session", full_name)
     };
 
+    /* NEWW SECTION */
+
+    let createUser = function (name) {
+        axios.post(baseURL, { "name": name }).then((response) => {
+            return response.data
+        });
+    };
+
     return {
         getName: getName,
-        setName: setName
+        setName: setName,
+        createUser: createUser
     }
 
 })();

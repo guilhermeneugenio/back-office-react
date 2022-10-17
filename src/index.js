@@ -4,16 +4,16 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WelcomePage from "./pages/WelcomePage.js";
-
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route index element={<WelcomePage />} />
-        {/* <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} /> */}
+        <Route path="signup" element={<SignUp />} />
+        <Route path="signin" element={<SignIn />} />
       </Routes>
     </BrowserRouter >
   );
