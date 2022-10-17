@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import UserProfile from '../components/UserHandler';
 import User from './User'
 
 const baseURL = "https://reqres.in/api/users";
@@ -11,8 +12,12 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     // Active user to be updated
     const [userID, setUserID] = useState('');
+    // Visibility State
+    const [visibility, setVisibility] = useState('hidden');
+    // Update or Create State
+    const [action, setAction] = useState('');
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
         axios.get(baseURL).then((response) => {
@@ -21,15 +26,29 @@ const Users = () => {
 
     }, []);
 
-    const onSubmit = data => {
-        setUsers(users.map((user) => {
-            if (user.id === userID) {
-                if (data['firstName']) user.first_name = data['firstName']
-                if (data['lastName']) user.last_name = data['lastName']
-                if (data['email']) user.email = data['email']
-            }
-            return user;
-        }))
+
+
+    const onSubmit = async (data) => {
+        if (action == 'update') {
+            // Insert Server update here
+            setUsers(users.map((user) => {
+                if (user.id === userID) {
+                    if (data['firstName']) user.first_name = data['firstName']
+                    if (data['lastName']) user.last_name = data['lastName']
+                    if (data['email']) user.email = data['email']
+                }
+                return user;
+            }))
+        }
+        else if (action == 'create') {
+            console.log(users)
+            let response = await UserProfile.createUser(data['firstName'], data['lastName'], data['email'])
+            setUsers(current => [...current, response]);
+
+
+        }
+        reset();
+        setVisibility('hidden')
     }
 
     const DeleteUser = (idx) => {
@@ -38,21 +57,28 @@ const Users = () => {
         }))
     }
 
-
     const UpdateUser = (idx) => {
         setUserID(idx)
-        //aparecer o form
+        setAction('update')
+        setVisibility('visible')
     }
+    const CreateUser = () => {
+        setAction('create')
+        setVisibility('visible')
+    }
+
 
 
 
     return (
         <div>
             <div>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register(`firstName`)} />
-                    <input {...register(`lastName`)} />
-                    <input {...register(`email`)} />
+
+                <button onClick={CreateUser}> Create User </button>
+                <form style={{ visibility: visibility }} onSubmit={handleSubmit(onSubmit)}>
+                    <input {...register(`firstName`)} placeholder='' />
+                    <input {...register(`lastName`)} placeholder='' />
+                    <input {...register(`email`)} placeholder='' />
                     <button type="submit">Submit</button>
                 </form>
                 {
@@ -64,7 +90,6 @@ const Users = () => {
                                 email={user.email}
                                 avatar={user.avatar}
                             />
-
                             <button onClick={() => { DeleteUser(user.id) }}> Delete User </button>
                             <button onClick={() => { UpdateUser(user.id) }}> Update User </button>
                         </div>
@@ -74,6 +99,8 @@ const Users = () => {
 
         </div >
     )
+
+
 };
 
 export default Users;

@@ -17,10 +17,19 @@ const UserProfile = (function () {
 
     /* NEWW SECTION */
 
-    let createUser = function (name) {
-        axios.post(baseURL, { "name": name }).then((response) => {
-            return response.data
-        });
+    const createUser = async (first_name, last_name, email) => {
+        try {
+            const resp = await axios.post(baseURL, {
+                "avatar": "https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg",
+                "first_name": first_name,
+                "last_name": last_name,
+                "email": email
+            });
+            return resp.data;
+        } catch (err) {
+            // Handle Error Here
+            return err
+        }
     };
 
     return {
