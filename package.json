@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^10.10.0",
     "react-router-dom": "^6.4.2"
   }
 }

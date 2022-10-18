@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import UserProfile from '../components/UserHandler';
 import User from './User'
-
-const baseURL = "https://reqres.in/api/users";
 
 const Users = () => {
 
@@ -20,13 +17,13 @@ const Users = () => {
     const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-        axios.get(baseURL).then((response) => {
-            setUsers(response.data.data);
-        });
+        const getUsers = async () => {
+            let response = await UserProfile.getUsers()
+            setUsers(response.data);
+        }
+        getUsers()
 
     }, []);
-
-
 
     const onSubmit = async (data) => {
         if (action == 'update') {
@@ -41,11 +38,8 @@ const Users = () => {
             }))
         }
         else if (action == 'create') {
-            console.log(users)
             let response = await UserProfile.createUser(data['firstName'], data['lastName'], data['email'])
             setUsers(current => [...current, response]);
-
-
         }
         reset();
         setVisibility('hidden')
@@ -56,7 +50,6 @@ const Users = () => {
             return user.id != idx;
         }))
     }
-
     const UpdateUser = (idx) => {
         setUserID(idx)
         setAction('update')
@@ -67,13 +60,9 @@ const Users = () => {
         setVisibility('visible')
     }
 
-
-
-
     return (
         <div>
             <div>
-
                 <button onClick={CreateUser}> Create User </button>
                 <form style={{ visibility: visibility }} onSubmit={handleSubmit(onSubmit)}>
                     <input {...register(`firstName`)} placeholder='' />
@@ -96,11 +85,8 @@ const Users = () => {
                     ))
                 }
             </div>
-
         </div >
     )
-
-
 };
 
 export default Users;
