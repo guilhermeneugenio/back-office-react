@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
-import UserProfile from '../components/UserHandler';
+import UserHandler from '../components/UserHandler';
 import Users from '../components/Users'
+import DarkMode from "../styles/DarkMode.tsx";
 import '../App.css';
-
-
 
 const WelcomePage = () => {
 
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const active = UserProfile.getName();
-        if (active) setName(active);
-        else navigate("/signin");
+
+        const tokenValidator = (tkn) => {
+            //Validate Token Function
+        };
+
+        const token = UserHandler.getToken();
+        tokenValidator(token);
     }, []);
-
-    const [name, setName] = useState('');
-    const [created, setCreated] = useState([]);
-
 
     return (
         <div>
-            <h1> Hello {name}</h1>
-
+            <div>
+                <h1> Back Office Manager</h1>
+                <DarkMode />
+            </div>
             <Users />
-            {created}
-
         </div>
     )
 };
