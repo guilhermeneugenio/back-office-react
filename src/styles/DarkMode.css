@@ -7,9 +7,12 @@
   
   /* 2 */
   [data-theme="dark"] {
-    --font-color: #eee;
     --background-color: #333;
     --link-color: lightblue;
+  }
+
+  [data-theme="dark"] h2 {
+    color:  #eee;
   }
   
   /* 3 */

@@ -63,27 +63,31 @@ const Users = () => {
     return (
         <div>
             <div>
-                <button onClick={CreateUser}> Create User </button>
+                <button onClick={CreateUser} className="bg-slate-900 hover:bg-slate-700 text-white font-semibold h-8 px-4 rounded-lg m-1"> Create User </button>
                 <form style={{ visibility: visibility }} onSubmit={handleSubmit(onSubmit)}>
                     <input {...register(`firstName`)} placeholder='' />
                     <input {...register(`lastName`)} placeholder='' />
                     <input {...register(`email`)} placeholder='' />
                     <button type="submit">Submit</button>
                 </form>
-                {
-                    users.map((user) => (
-                        < div key={user.id} >
-                            <User
-                                first_name={user.first_name}
-                                last_name={user.last_name}
-                                email={user.email}
-                                avatar={user.avatar}
-                            />
-                            <button onClick={() => { DeleteUser(user.id) }}> Delete User </button>
-                            <button onClick={() => { UpdateUser(user.id) }}> Update User </button>
-                        </div>
-                    ))
-                }
+                <div className='grid grid-rows-2 grid-cols-3 justify-items-center'>
+                    {
+                        users.map((user) => (
+
+                            < div key={user.id} className="w-max  bg-slate-100 rounded-xl p-8 dark:bg-slate-800 m-12 drop-shadow-md">
+                                <User
+                                    first_name={user.first_name}
+                                    last_name={user.last_name}
+                                    email={user.email}
+                                    avatar={user.avatar}
+                                />
+                                <button className="bg-slate-900 hover:bg-slate-700 text-white font-semibold h-8 px-4 rounded-lg m-1" onClick={() => { UpdateUser(user.id) }}> Update User </button>
+                                <button className="bg-slate-900 hover:bg-slate-700 text-white font-semibold h-8 px-4 rounded-lg m-1" onClick={() => { DeleteUser(user.id) }}> Delete User </button>
+                            </div>
+
+                        ))
+                    }
+                </div>
             </div>
         </div >
     )

@@ -24,7 +24,6 @@ const UserProfile = (function () {
                 "email": "eve.holt@reqres.in",
                 "password": "cityslicka"
             });
-            console.log(resp.data)
             return resp.data;
         } catch (err) {
             // Handle Error Here

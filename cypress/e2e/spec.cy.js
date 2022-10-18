@@ -1,5 +1,7 @@
 describe('Back Office Testing Module', () => {
+
   it('successfully loads', () => {
+    cy.clearLocalStorage()
     cy.visit('/')
     cy.get('input[name=username]').type('Francisco')
     cy.get('input[name=password]').type(`'abc123'{enter}`)
@@ -19,4 +21,9 @@ describe('Back Office Testing Module', () => {
     cy.get('input[name=lastName]').type(`User`)
     cy.get('input[name=email]').type(`NEW_USER@email.com{enter}`)
   })
+  it('turns dark and light mode on', () => {
+    cy.get('.slider').click()
+    cy.get('.slider').click()
+  })
+
 })
