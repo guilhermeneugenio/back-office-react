@@ -3,8 +3,24 @@ describe('Back Office Testing Module', () => {
   it('successfully loads', () => {
     cy.clearLocalStorage()
     cy.visit('/')
+  })
+  it('detects non matching password', () => {
+    cy.get('a').click()
     cy.get('input[name=username]').type('Francisco')
-    cy.get('input[name=password]').type(`'abc123'{enter}`)
+    cy.get('input[name=password]').type(`abc123`)
+    cy.get('input[name=confirm_password]').type(`'abc124`)
+    cy.get('p')
+  })
+  it('registers', () => {
+    cy.get('input[name=confirm_password]').clear()
+    cy.get('input[name=confirm_password]').type(`abc123`)
+    cy.get('.bg-slate-900').click()
+  })
+  it('log ins', () => {
+    cy.wait(1000);
+    cy.get('input[name=username]').type('Francisco')
+    cy.get('input[name=password]').type(`abc123`)
+    cy.get('.bg-slate-900').click()
   })
   it('deletes a user', () => {
     cy.get(':nth-child(4) > :nth-child(2)').click()
@@ -25,5 +41,4 @@ describe('Back Office Testing Module', () => {
     cy.get('.slider').click()
     cy.get('.slider').click()
   })
-
 })
