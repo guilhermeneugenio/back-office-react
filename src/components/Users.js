@@ -64,11 +64,11 @@ const Users = () => {
         <div>
             <div>
                 <button onClick={CreateUser} className="bg-slate-900 hover:bg-slate-700 text-white font-semibold h-8 px-4 rounded-lg m-1"> Create User </button>
-                <form style={{ visibility: visibility }} onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register(`firstName`)} placeholder='' />
-                    <input {...register(`lastName`)} placeholder='' />
-                    <input {...register(`email`)} placeholder='' />
-                    <button type="submit">Submit</button>
+                <form style={{ visibility: visibility }} onSubmit={handleSubmit(onSubmit)} className="w-max flex flex-col justify-items-center bg-slate-100 rounded-xl p-8 dark:bg-slate-800 my-12 w-1/3 drop-shadow-md">
+                    <input className="focus:ring-blue-700 focus:outline-none appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm" type="text" {...register("firstName")} placeholder='First Name' />
+                    <input className="focus:ring-blue-700 focus:outline-none appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 my-2 ring-slate-200 shadow-sm" type="text" {...register("lastName")} placeholder='Last Name' />
+                    <input className="focus:ring-blue-700 focus:outline-none appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 mb-6 ring-slate-200 shadow-sm" type="text" {...register("email")} placeholder='Email' />
+                    <button className="bg-slate-900 hover:bg-slate-700 text-white font-semibold h-8 px-4 rounded-lg m-1" type="submit">Submit</button>
                 </form>
                 <div className='grid grid-rows-2 grid-cols-3 justify-items-center'>
                     {
