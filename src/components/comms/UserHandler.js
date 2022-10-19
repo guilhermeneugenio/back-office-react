@@ -5,6 +5,8 @@ const UserProfile = (function () {
 
     let full_name = "";
 
+    /* LOCAL STORAGE HANDLER */
+
     let getToken = function () {
         full_name = localStorage.getItem("active_session")
         return full_name;
@@ -15,12 +17,13 @@ const UserProfile = (function () {
         localStorage.setItem("active_session", full_name)
     };
 
-    /* NEWW SECTION */
+    /* AXIOS CALLS */
 
 
     const login = async (email, password) => {
         try {
             const resp = await axios.post(baseURL + 'login', {
+                // Used fake server inputs, use email and password for verification
                 "email": "eve.holt@reqres.in",
                 "password": "cityslicka"
             });
@@ -34,6 +37,7 @@ const UserProfile = (function () {
     const register = async (email, password) => {
         try {
             const resp = await axios.post(baseURL + 'register', {
+                // Used fake server inputs, use email and password for verification
                 "email": "eve.holt@reqres.in",
                 "password": "pistol"
             });

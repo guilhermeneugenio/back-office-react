@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import UserHandler from '../components/UserHandler';
+import UserHandler from '../components/comms/UserHandler';
 import DarkMode from "../styles/DarkMode.tsx";
 
 
